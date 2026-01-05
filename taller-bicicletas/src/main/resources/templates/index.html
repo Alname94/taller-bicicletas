@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taller de Bicicletas - Gestión</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body class="conatainer bg-dark" style="text-align: center;">
+    <!-- barra de navegación superior -->
+    <nav class="navbar bg-warning">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#" role="button" data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" aria-expanded="false">
+                <img src="/imagenes/burger.svg" alt="Menú" width="30" height="24"
+                    class="d-inline-block align-text-top me-2">
+            </a>
+            <div class="position-absolute start-50 translate-middle-x m-0">
+                <a href="/" class="taller-bicicletas">Taller de Bicicletas</a>
+            </div>
+        </div>
+    </nav>
+    <!-- barra lateral desplegable -->
+    <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasExampleLabel">Gestión</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body" style="text-align: left;">
+            <div>
+                <ul class="list-unstyled d-grid gap-3">
+                    <li><a href="html/clientes.html" class="btn btn-outline-warning w-100">Clientes</a></li>
+                    <li><a href="html/bicicletas.html" class="btn btn-outline-warning w-100">Bicicletas</a></li>
+                    <li><a href="html/presupuestos.html" class="btn btn-outline-warning w-100">Presupuestos</a></li>
+                    <li><a href="html/repuestos.html" class="btn btn-outline-warning w-100">Repuestos</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-warning mt-4 mb-4">🔧 Bicicletas Actualmente en Taller 🔧</h2>
+    <!-- card por cada bicicleta obtenida -->
+    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">        
+        <div class="col" th:each="bici : ${bicicletasEnTaller}">
+            <div class="card text-bg-light h-100">                
+                <div class="card-body">
+                    <h5 class="card-title text-primary" th:text="${bici.modelo}">Modelo de la Bicicleta</h5>
+                    <p class="card-text">
+                        <strong>ID:</strong> <span th:text="${bici.id}">123</span><br>
+                        <strong>Cliente:</strong> <span th:text="${bici.cliente != null ? bici.cliente.nombre : 'Sin Asignar'}">Nombre Cliente</span><br>
+                        <strong>Fecha de Ingreso:</strong> 
+                        <span th:text="${#temporals.format(bici.fechaIngreso, 'dd-MM-yyyy')}">01-01-2025</span>
+                    </p>
+                </div>
+                
+                <div class="card-footer">
+                    <a th:href="@{/html/bicicleta-editar.html(id=${bici.id})}" class="btn btn-warning btn-sm w-100">Ver Detalles</a>
+                </div>
+            </div>
+        </div>
+        <!-- si no hay bicicletas con fecha de egreso null -->
+        <div class="col-12 mt-5" th:if="${bicicletasEnTaller == null or #lists.isEmpty(bicicletasEnTaller)}">
+            <div class="alert alert-info" role="alert">
+                <p>¡Excelente! No hay bicicletas pendientes en el taller.</p>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+</body>
+</html>
