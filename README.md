@@ -32,4 +32,8 @@ ACLARACIÓN: Los delete solo se podrán hacer si no hay restricciones SQL, no se
 + Todas las clases anotadas (@Controller, @RestController, @Service, @Repository, @Entity)
 ##
 
+> [!NOTE]
+> Proyecto en desarrollo.
+
 ### Autor: Alejo Méndez
+
